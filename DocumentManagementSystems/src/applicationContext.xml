@@ -23,11 +23,11 @@
     <context:annotation-config/>
   	<tx:annotation-driven/>
   	
-   <wss:binding url="/jaxws-spring">
+  <!--  <wss:binding url="/jaxws-spring">
         <wss:service>
             <ws:service bean="#myserviceWs"/>
         </wss:service>
-    </wss:binding>
+    </wss:binding> -->
   
   	
   <!-- <context:component-scan base-package="in.jdsoft.educationmanagement">
