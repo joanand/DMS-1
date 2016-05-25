@@ -16,26 +16,26 @@ import in.jdsoft.dms.model.Users;
 
 public  class CommonMethods 
 {
-	public static String UsersName="";
-	public static String FolderCode="";
-	public static String Passwords="";
-	public static  String FolderName="";
-	public static String UserRole="";
-	public static Double version;
-	public static String location="";
-	public static String SFolderName="";
-	public static boolean istr=false;
+	public  String UsersName="";
+	public  String FolderCode="";
+	public  String Passwords="";
+	public   String FolderName="";
+	public  String UserRole="";
+	public  Double version;
+	public  String location="";
+	public  String SFolderName="";
+	public  boolean istr=false;
 	
-	public static ApplicationContext context=ApplicationContextHandler.getApplicationContext();
-	public static FolderDAO folderdao=(FolderDAO)context.getBean("folderDAO");
-	public static UsersDAO usersdao=(UsersDAO)context.getBean("usersDAO");
-	public static UsersAccessDAO usersaccessdao=(UsersAccessDAO)context.getBean("usersAccessDAO");
-	public static UsersRoleDAO usersroledao=(UsersRoleDAO)context.getBean("usersRoleDAO");
-	public static DocumentDAO documentdao=(DocumentDAO)context.getBean("documentDAO");
-	public static DocumentHistoryDAO documenthistorydao=(DocumentHistoryDAO)context.getBean("documentHistoryDAO");
+	public  ApplicationContext context=ApplicationContextHandler.getApplicationContext();
+	public  FolderDAO folderdao=(FolderDAO)context.getBean("folderDAO");
+	public  UsersDAO usersdao=(UsersDAO)context.getBean("usersDAO");
+	public  UsersAccessDAO usersaccessdao=(UsersAccessDAO)context.getBean("usersAccessDAO");
+	public  UsersRoleDAO usersroledao=(UsersRoleDAO)context.getBean("usersRoleDAO");
+	public  DocumentDAO documentdao=(DocumentDAO)context.getBean("documentDAO");
+	public  DocumentHistoryDAO documenthistorydao=(DocumentHistoryDAO)context.getBean("documentHistoryDAO");
 	
 
-	public static String deletePath(String FolderCode)
+	public  String deletePath(String FolderCode)
 	{
 
 		Folder folder=new Folder();
@@ -61,7 +61,7 @@ public  class CommonMethods
 	}
 
 
-	public static String deleteparentId(Integer parentId)
+	public  String deleteparentId(Integer parentId)
 	{
 		
 		Folder folder=new Folder();
@@ -82,7 +82,7 @@ public  class CommonMethods
 	}
 	
 
-	public static String Path(String FolderCode)
+	public  String Path(String FolderCode)
 	{
 		
 		Folder folder=new Folder();
@@ -108,7 +108,7 @@ public  class CommonMethods
 		
 	}
 
-	public static String parentId(Integer parentId)
+	public  String parentId(Integer parentId)
 	{
 		
 		Folder folder=new Folder();
@@ -118,7 +118,7 @@ public  class CommonMethods
 	}
 	
 
-	public static boolean Login(String UserName, String Password) throws Exception
+	public  boolean Login(String UserName, String Password) throws Exception
 	{
 		boolean isValid=false;
 		Users user=usersdao.getUserByName(UserName);
@@ -136,7 +136,7 @@ public  class CommonMethods
 		return isValid;
 	}
 
-	public static boolean checkuser()
+	public  boolean checkuser()
 	{
 		boolean isValid=false;
 	

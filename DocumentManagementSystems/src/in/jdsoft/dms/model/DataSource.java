@@ -4,9 +4,9 @@ package in.jdsoft.dms.model;
 public class DataSource {
 	
 	private String DriverClassName="com.mysql.jdbc.Driver";
-	private String URL="jdbc:mysql://localhost:3306/jdsoftdms?createDatabaseIfNotExist=true";
-	private String UserName="root";
-	private String Password="";
+	private String URL="jdbc:mysql://localhost:3306/mua_database?createDatabaseIfNotExist=true";
+	private String UserName="test1";
+	private String Password="test1";
 	
 	public DataSource() {
 		// TODO Auto-generated constructor stub
