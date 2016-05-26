@@ -1,0 +1,5 @@
+<factorypath>
+    <factorypathentry kind="PLUGIN" id="oracle.eclipse.tools.weblogic" enabled="false" runInBatchMode="true"/>
+    <factorypathentry kind="PLUGIN" id="org.eclipse.jst.ws.annotations.core" enabled="true" runInBatchMode="true"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\administrator\Downloads\org.springframework.beans_3.0.5.RELEASE.jar\org.springframework.beans_3.0.5.RELEASE.jar" enabled="true" runInBatchMode="true"/>
+</factorypath>

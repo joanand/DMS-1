@@ -181,6 +181,78 @@ public List<Document>  getDocumentsByUser(String UserId) {
 	}
 }
 
+@Transactional
+public List<Document>  Search(String Keyword,String Path) {
+	log.debug("getting Document instance with keyword: " + Keyword+"and"+Path );
+	try {
+		Criteria criteria=sessionFactory.getCurrentSession().createCriteria(Document.class);
+		MatchMode matchMode=MatchMode.ANYWHERE;
+		criteria.add(Restrictions.like("documentUuid", Keyword, matchMode));		
+		List<Document>  document=(List<Document>) criteria.list();
+		List<Document>  document1=SearchByName(Keyword);
+		List<Document>  document2=SearchByPath(Path);
+		document.addAll(document1);
+		document.addAll(document2);
+			
+		if (document == null) {
+			log.debug("get successful, no instance found");
+			
+		} else {
+			
+			log.debug("get successful, instance found");
+		}
+		return document;
+	} catch (RuntimeException re) {
+		log.error("get failed", re);
+		throw re;
+	}
+}
+@Transactional
+public List<Document>  SearchByName(String Keyword) {
+	log.debug("getting Document instance with keyword: " + Keyword );
+	try {
+		Criteria criteria=sessionFactory.getCurrentSession().createCriteria(Document.class);
+		MatchMode matchMode=MatchMode.ANYWHERE;
+		
+		criteria.add(Restrictions.like("documentName", Keyword, matchMode));
+	
+		List<Document>  document=(List<Document>) criteria.list();
+
+		if (document == null) {
+			log.debug("get successful, no instance found");
+			
+		} else {
+			
+			log.debug("get successful, instance found");
+		}
+		return document;
+	} catch (RuntimeException re) {
+		log.error("get failed", re);
+		throw re;
+	}
+}
+@Transactional
+public List<Document>  SearchByPath(String Path) {
+	log.debug("getting Document instance with keyword: " +Path );
+	try {
+		Criteria criteria=sessionFactory.getCurrentSession().createCriteria(Document.class);
+		MatchMode matchMode=MatchMode.ANYWHERE;
+		criteria.add(Restrictions.like("path", Path, matchMode));
+		List<Document>  document=(List<Document>) criteria.list();
+		if (document == null) {
+			log.debug("get successful, no instance found");
+			
+		} else {
+			
+			log.debug("get successful, instance found");
+		}
+		return document;
+	} catch (RuntimeException re) {
+		log.error("get failed", re);
+		throw re;
+	}
+}
+
 
 
 	/*public List findByExample(Document instance) {

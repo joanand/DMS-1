@@ -1,18 +1,45 @@
 package in.jdsoft.dms.services;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
-import in.jdsoft.dms.model.*;
-import in.jdsoft.dms.services.CommonMethods;
 
+import in.jdsoft.dms.model.Document;
+import in.jdsoft.dms.model.DocumentHistory;
+import in.jdsoft.dms.model.Folder;
+import in.jdsoft.dms.model.Users;
+import in.jdsoft.dms.model.UsersAccess;
+import in.jdsoft.dms.model.UsersRole;
+
+
+/**
+* <h1>Document Management System</h1>
+* Document Management System its used to maintain various type of documents 
+* <p>
+* <b>Note:</b>Giving proper comments in your program makes it more
+* user friendly and it is assumed as a high quality code.
+* @author  JdsoftAdmin
+* @version 1.0
+* @since   2016-May-26
+*/
 public class jdsoftDMS                                             
 {
-
+	
 	CommonMethods commonMethods=new CommonMethods();
 	
+	
+/**
+* <h3>Create Folder Method</h3>
+* This method used to create new folder and backward slash used to separate the sub folder name
+* @param FolderName This is the input for createFolder method
+* @throws java.lang.Exception
+* On input error.
+* Example: createFolder("test1/test2")
+*/
 public void createFolder(String FolderName)throws Exception
 {
 	if(FolderName=="")
@@ -36,6 +63,16 @@ public void createFolder(String FolderName)throws Exception
 	}
 
 }
+/**
+ * <h3>Create Sub Folder Method</h3>
+ * This method used to create sub folder for already existing folder 
+ * and existing folder code used create new sub folder
+ * @param RootFolderCode This is the first parameter to createSubFolder method
+ * @param SubFolderName This is the second parameter to createSubFolder method
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: createSubFolder("12345","test1/test2")
+ */
 public void createSubFolder(String RootFolderCode,String SubFolderName)throws Exception
 {
 	if(RootFolderCode==""||SubFolderName=="")
@@ -56,7 +93,14 @@ public void createSubFolder(String RootFolderCode,String SubFolderName)throws Ex
 	}
 }
 
-	
+/**
+* <h3>Delete Folder Method</h3>
+* This method used to delete folder and folder inside documents,folders automatically deleted
+* @param FolderCode This is the input for deleteFolder method
+* @throws java.lang.Exception
+* On input error.
+* Example: deleteFolder("12345")
+*/	
 public void deleteFolder(String FolderCode)throws Exception
 {
 	if(FolderCode=="")
@@ -86,6 +130,15 @@ public void deleteFolder(String FolderCode)throws Exception
 		}
 	}	
 }
+/**
+ * <h3>Rename Folder Method</h3>
+ * This method used to rename the already existing folder
+ * @param OldFolderCode This is the first parameter to renameFolder method
+ * @param NewFolderName This is the second parameter to renameFolder method
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: renameFolder("123456","test1")
+ */
 public void renameFolder(String OldFolderCode,String NewFolderName)throws Exception
 {
 	if(OldFolderCode==""||NewFolderName=="")
@@ -107,6 +160,16 @@ public void renameFolder(String OldFolderCode,String NewFolderName)throws Except
 	}
 	commonMethods.folderdao.update(folder);
 }	
+/**
+ * <h3>Create Document Method</h3>
+ * This method used to create new document inside the specific folder
+ * @param DocumentName This is the first parameter to createDocument method
+ * @param FolderCode This is the second parameter to createDocument method
+ * @param bytes This is the third parameter to createDocument method
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: createDocument("DocumentName","123456",bytes[])
+ */
 public void createDocument(String DocumentName,String FolderCode,byte[] bytes)throws Exception
 {
 	if(DocumentName==""||FolderCode=="")
@@ -133,6 +196,15 @@ public void createDocument(String DocumentName,String FolderCode,byte[] bytes)th
 	documenthistory.setContent(bytes);
 	commonMethods.documenthistorydao.persist(documenthistory);	
 }	
+/**
+ * <h3>Rename Document Method</h3>
+ * This method used to rename the document
+ * @param NewDocumentName This is the first parameter to renameDocument method
+ * @param DocumentUuid This is the second parameter to renameDocument method
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: renameDocument("NewDocumentName","123456")
+ */
 public void renameDocument(String NewDocumentName, String DocumentUuid) throws Exception
 {
 	if(NewDocumentName==""||DocumentUuid=="")
@@ -144,6 +216,14 @@ public void renameDocument(String NewDocumentName, String DocumentUuid) throws E
 	document.setDocumentName(NewDocumentName);
 	commonMethods.documentdao.update(document);	
 }	
+/**
+* <h3>Delete Document Method</h3>
+* This method used to delete the document
+* @param DocumentUuid This is the first parameter to deleteDocument method
+* @throws java.lang.Exception
+* On input error.
+* Example: deleteDocument("123456")
+*/	
 public void deleteDocument(String DocumentUuid)throws Exception
 {
 	if(DocumentUuid=="")
@@ -157,6 +237,18 @@ public void deleteDocument(String DocumentUuid)throws Exception
 	commonMethods.documentdao.delete(document);
 	commonMethods.documenthistorydao.delete(documenthistory);
 }	
+/**
+* <h3>Create User Method</h3>
+* This method used to create new user in Document Management System
+* @param userName This is the first parameter to createUser method
+* @param userPassword This is the second parameter to createUser method
+* @param userEmail This is the third parameter to createUser method
+* @param userStatus This is the fourth parameter to createUser method
+* @param userRole This is the fifth parameter to createUser method
+* @throws java.lang.Exception
+* On input error.
+* Example: createUser("user1","password","user1@gmail.com",1,"Admin")
+*/	
 public void createUser(String userName, String userPassword, String userEmail, Integer userStatus, String userRole) throws Exception
 {
 	if(userName==""||userPassword=="")
@@ -189,6 +281,14 @@ public void createUser(String userName, String userPassword, String userEmail, I
 		throw new Exception("Users Cannot Access These Method");
 	}	
 }	
+/**
+* <h3>Delete User Method</h3>
+* This method used to delete user in Document Management System
+* @param UserName This is the input for deleteUser method
+* @throws java.lang.Exception
+* On input error.
+* Example: deleteUser("user1")
+*/	
 public void deleteUser(String UserName) throws Exception
 {
 	if(commonMethods.UserRole.equals("Admin"))
@@ -202,6 +302,15 @@ public void deleteUser(String UserName) throws Exception
 		throw new Exception("Users Cannot Access These Method");
 	}
 }
+/**
+* <h3>Lock Document Method</h3>
+* This method used to lock particular document 
+* and avoid other users accessing that document
+* @param DocumentUuid This is the input for lockDocument method
+* @throws java.lang.Exception
+* On input error.
+* Example: lockDocument("123456")
+*/	
 public void lockDocument(String DocumentUuid) throws Exception
 {
 	if(DocumentUuid=="")
@@ -227,6 +336,14 @@ public void lockDocument(String DocumentUuid) throws Exception
 		throw new Exception("Document locked by another user...");
 	}	
 }	
+/**
+* <h3>UnLock Document Method</h3>
+* This method used to unlock the document
+* @param DocumentUuid This is the input for unlockDocument method
+* @throws java.lang.Exception
+* On input error.
+* Example: unlockDocument("123456")
+*/
 public void unlockDocument(String DocumentUuid) throws Exception
 {
 	if(DocumentUuid=="")
@@ -251,7 +368,16 @@ public void unlockDocument(String DocumentUuid) throws Exception
 	{
 		throw new Exception("Document locked by another user...");	
 	}	
-}	
+}
+/**
+* <h3>CheckIn Method</h3>
+* This method used to checkIn particular document 
+* and avoid other users editing that document
+* @param DocumentUuid This is the input for checkIn method
+* @throws java.lang.Exception
+* On input error.
+* Example: checkIn("123456")
+*/
 public void checkIn(String DocumentUuid) throws Exception
 {
 	 if(DocumentUuid=="")
@@ -271,6 +397,16 @@ public void checkIn(String DocumentUuid) throws Exception
 			throw new Exception("Current document edit with other user...");
 		}
 }	
+/**
+ * <h3>CheckOut Method</h3>
+ * This method used to update the document 
+ * and when document editing complete  after checkOut that document
+ * @param DocumentUuid This is the first parameter to checkOut method
+ * @param bytes This is the second parameter to checkOut method
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: checkOut("123456",bytes[])
+ */
 public void checkOut(String DocumentUuid,byte[] bytes) throws Exception
 {
 	if(DocumentUuid=="")
@@ -302,6 +438,15 @@ public void checkOut(String DocumentUuid,byte[] bytes) throws Exception
 		throw new Exception("Document already checkout..");	
 	}
 }
+/**
+* <h3>Cancel CheckIn Method</h3>
+* This method used to cancel the checkIn for particular document 
+* and Admin only can access this method
+* @param DocumentUuid This is the input for cancelCheckIn method
+* @throws java.lang.Exception
+* On input error.
+* Example: cancelCheckIn("123456")
+*/
 public void cancelCheckIn(String DocumentUuid) throws Exception
 {
 	if(DocumentUuid=="")
@@ -321,6 +466,15 @@ public void cancelCheckIn(String DocumentUuid) throws Exception
 		throw new Exception("Users Cannot Access These Method");
 	}
 }
+/**
+* <h3>Get Content Method</h3>
+* This method used to get particular document content
+* @param DocumentUuid This is the input for getContent method
+* @return byte array data.
+* @throws java.lang.Exception
+* On input error.
+* Example: getContent("123456")
+*/
 public byte[] getContent(String DocumentUuid) throws Exception
 {
 	if(DocumentUuid=="")
@@ -344,6 +498,15 @@ public byte[] getContent(String DocumentUuid) throws Exception
 	}
 	return  b;
 }	
+/**
+ * <h3>Restore Method</h3>
+ * This method used to restore the document version
+ * @param Version This is the first parameter to Restore method
+ * @param DocumentUuid This is the second parameter to Restore method
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: Restore(1.2,"123456")
+ */
 public void Retore(Double Version,String DocumentUuid)throws Exception
 {
 	if(DocumentUuid==""||Version==null)
@@ -405,6 +568,15 @@ public void Retore(Double Version,String DocumentUuid)throws Exception
 	documenthistory.setVersion(lastversion);
 	commonMethods.documenthistorydao.update(documenthistory);
 }
+/**
+ * <h3>Move Document Method</h3>
+ * This method used to move document from one folder to another folder
+ * @param DocumentUuid This is the first parameter to moveDocument method
+ * @param DestinationFolderCode This is the second parameter to moveDocument method
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: moveDocument("123456","233456346")
+ */
 public void moveDocument(String DocumentUuid,String DestinationFolderCode)throws Exception
 {
 	if(DocumentUuid==""||DestinationFolderCode=="")
@@ -423,6 +595,15 @@ public void moveDocument(String DocumentUuid,String DestinationFolderCode)throws
 		throw new Exception("Document working with user...");
 	}
 }
+/**
+ * <h3>Copy Document Method</h3>
+ * This method used to copy document from one folder to another folder
+ * @param DocumentUuid This is the first parameter to copyDocument method
+ * @param DestinationFolderCode This is the second parameter to copyDocument method
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: copyDocument("123456","233456346")
+ */
 public void copyDocument(String DocumentUuid,String DestinationFolderCode)throws Exception
 {
 	if(DocumentUuid==""||DestinationFolderCode=="")
@@ -447,6 +628,16 @@ public void copyDocument(String DocumentUuid,String DestinationFolderCode)throws
 			throw new Exception("Document working with user...");
 		}
 }
+/**
+ * <h3>Document Allocation Method</h3>
+ * This method used to allocate the document for particular user
+ * and Admin only can access this method
+ * @param DocumentUuid This is the first parameter to documentAllocation method
+ * @param UserId This is the second parameter to documentAllocation method
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: documentAllocation("123456",3)
+ */
 public void documentAllocation(String DocumentUuid,Integer UserId)throws Exception
 {
 	if(DocumentUuid==""||UserId==null)
@@ -494,6 +685,16 @@ public void documentAllocation(String DocumentUuid,Integer UserId)throws Excepti
 		throw new Exception("Users Cannot Access These Method");
 	}
 }
+/**
+ * <h3>Cancel Particular User Allocation Method</h3>
+ * This method used to cancel the allocation of document for particular user
+ * and Admin only can access this method
+ * @param DocumentUuid This is the first parameter to cancelParticularUserAllocation method
+ * @param UserId This is the second parameter to cancelParticularUserAllocation method
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: cancelParticularUserAllocation("123456",3)
+ */
 public void cancelParticularUserAllocation(String DocumentUuid,Integer UserId)throws Exception
 {
 	if(DocumentUuid==""||UserId==null)
@@ -531,6 +732,15 @@ public void cancelParticularUserAllocation(String DocumentUuid,Integer UserId)th
 		throw new Exception("Users Cannot Access These Method");
 	}
 }	
+/**
+ * <h3>Cancel All Allocation Method</h3>
+ * This method used to cancel the allocation of document for all the user
+ * and Admin only can access this method
+ * @param DocumentUuid This is the input for cancelAllAllocation method
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: cancelAllAllocation("123456")
+ */
 public void cancelAllAllocation(String DocumentUuid)throws Exception
 {
 	if(DocumentUuid=="")
@@ -549,6 +759,14 @@ public void cancelAllAllocation(String DocumentUuid)throws Exception
 		throw new Exception("Users Cannot Access These Method");
 	}
 }	
+/**
+ * <h3>View Allocated DocumentsList By User Method</h3>
+ * This method used to view allocated documents list for particular user
+ * @return ArrayList of Documents.
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: viewAllocatedDocumentsListByUser()
+ */
 public ArrayList<Document> viewAllocatedDocumentsListByUser() throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -592,6 +810,15 @@ public ArrayList<Document> viewAllocatedDocumentsListByUser() throws Exception
 	
 	return dock2 ;
 }	
+/**
+ * <h3>View Allocated Document Method</h3>
+ * This method used to view all the allocated documents list 
+ * and Admin only can access this method
+ * @return ArrayList of Documents.
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: viewAllocatedDocument()
+ */
 public ArrayList<Document> viewAllocatedDocument() throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -621,6 +848,15 @@ public ArrayList<Document> viewAllocatedDocument() throws Exception
 	}
 	return dock2 ;
 }
+/**
+ * <h3>Get Users List Method</h3>
+ * This method used to view all the users list 
+ * and Admin only can access this method
+ * @return ArrayList of Users.
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: getUsersList()
+ */
 public ArrayList<Users> getUsersList() throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -636,6 +872,15 @@ public ArrayList<Users> getUsersList() throws Exception
 	}
 	return (ArrayList<Users>) commonMethods.usersdao.getUsersList();
 }
+/**
+ * <h3>Get Documents List Method</h3>
+ * This method used to view all the documents list 
+ * and Admin only can access this method
+ * @return ArrayList of documents.
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: getDocumentsList()
+ */
 public ArrayList<Document> getDocumentsList() throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -651,6 +896,15 @@ public ArrayList<Document> getDocumentsList() throws Exception
 	}
 	return (ArrayList<Document>) commonMethods.documentdao.getDocumentList();
 }
+/**
+ * <h3>Get Folders List Method</h3>
+ * This method used to view all the folders list 
+ * and Admin only can access this method
+ * @return ArrayList of folders.
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: getFolersList()
+ */
 public ArrayList<Folder> getFolersList() throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -666,6 +920,14 @@ public ArrayList<Folder> getFolersList() throws Exception
 	}
 	return (ArrayList<Folder>) commonMethods.folderdao.getFolderList();
 }
+/**
+ * <h3>Get DocumentsList By User Method</h3>
+ * This method used to view all the documents for particular user
+ * @return ArrayList of documents.
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: getDocumentsListByUser()
+ */
 public ArrayList<Document> getDocumentsListByUser() throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -685,6 +947,14 @@ public ArrayList<Document> getDocumentsListByUser() throws Exception
 	}
 	return (ArrayList<Document>) commonMethods.documentdao.getDocumentListByUser(Path);
 }
+/**
+ * <h3>Get FoldersList By User Method</h3>
+ * This method used to view all the folders for particular user
+ * @return ArrayList of folders.
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: getFoldersListByUser()
+ */
 public ArrayList<Folder> getFolersListByUser()throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -693,6 +963,14 @@ public ArrayList<Folder> getFolersListByUser()throws Exception
 	}
 	return (ArrayList<Folder>) commonMethods.folderdao.getFoldersListByUsers(commonMethods.UsersName);
 }
+/**
+ * <h3>Get Documents By Folder Method</h3>
+ * This method used to view all the documents for particular folder
+ * @return ArrayList of documents.
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: getDocumentsByFolder("1234567")
+ */
 public ArrayList<Document> getDocumentsByFolder(String FolderCode)throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -703,6 +981,34 @@ public ArrayList<Document> getDocumentsByFolder(String FolderCode)throws Excepti
 	String	Path="root:jdsoftdms/"+commonMethods.Path(folder.getFolderCode());
 	return (ArrayList<Document>) commonMethods.documentdao.getPathByDocument(Path);
 }
+/**
+ * <h3>Search Method</h3>
+ * This method used to search the document
+ * @param Keyword This is the input for Search method
+ * @return ArrayList of documents.
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: Search("keyword")
+ */
+public ArrayList<Document> Search(String Keyword) throws Exception
+{
+	if(Keyword==""||commonMethods.UsersName=="")
+	{
+		throw new Exception();
+	}
+
+	String	path="root:jdsoftdms/"+commonMethods.Path(commonMethods.FolderCode);
+	return (ArrayList<Document>)commonMethods.documentdao.Search(Keyword, path);
+}
+/**
+ * <h3>jdsoftDMS Constructor</h3>
+ *  This constructor used to create of an object for Document Management System and object used to access Document Management System all the methods
+ * @param UserName This is the first parameter to jdsoftDMS constructor
+ * @param Password This is the second parameter to jdsoftDMS constructor
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: jdsoftDMS("jdsoftAdmin","admin")
+ */	
 public jdsoftDMS(String UserName,String Password) throws Exception
 {	
 	if(commonMethods.checkuser())
@@ -742,8 +1048,5 @@ public jdsoftDMS(String UserName,String Password) throws Exception
 		}
 }
 
-public static void main(String[] args) throws Exception {
-	jdsoftDMS jds=new jdsoftDMS("jdsoftAdmin", "admin");
-}
 
 }
