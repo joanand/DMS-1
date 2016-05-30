@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from webserviceFactoryService WSDL service -->
+
+  <service name="webserviceFactory" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://services.dms.jdsoft.in"/>
+      <parameter name="wsdlServiceElement" value="webserviceFactoryService"/>
+      <parameter name="schemaQualified" value="http://services.dms.jdsoft.in"/>
+      <parameter name="wsdlServicePort" value="webserviceFactory"/>
+      <parameter name="className" value="in.jdsoft.dms.services.webserviceFactory"/>
+      <parameter name="wsdlPortType" value="webserviceFactory"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" xmlns:retNS="http://services.dms.jdsoft.in" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getInstance" qname="operNS:getInstance" returnQName="retNS:getInstanceReturn" returnType="rtns:anyType" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:UserName" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:Password" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="getInstance"/>
+
+  </service>
+</deployment>

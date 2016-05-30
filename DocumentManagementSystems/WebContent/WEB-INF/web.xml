@@ -9,27 +9,45 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
- 
- 
   <display-name>JAXWS-Spring</display-name>
-
-   <servlet>
-                <servlet-name>jaxws-servlet</servlet-name>
-               <servlet-class>
+  <servlet>
+    <servlet-name>jaxws-servlet</servlet-name>
+    <servlet-class>
                       com.sun.xml.ws.transport.http.servlet.WSSpringServlet
                 </servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-                <servlet-name>jaxws-servlet</servlet-name>
-                <url-pattern>/jaxws-spring</url-pattern>
-         </servlet-mapping>
-
-         <!-- Register Spring Listener -->
-    <listener>
-
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
- 
- 
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>jaxws-servlet</servlet-name>
+    <url-pattern>/jaxws-spring</url-pattern>
+  </servlet-mapping>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <servlet>
+    <display-name>Apache-Axis Servlet</display-name>
+    <servlet-name>AxisServlet</servlet-name>
+    <servlet-class>org.apache.axis.transport.http.AxisServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>/servlet/AxisServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>*.jws</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AxisServlet</servlet-name>
+    <url-pattern>/services/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <display-name>Axis Admin Servlet</display-name>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>org.apache.axis.transport.http.AdminServlet</servlet-class>
+    <load-on-startup>100</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/servlet/AdminServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
