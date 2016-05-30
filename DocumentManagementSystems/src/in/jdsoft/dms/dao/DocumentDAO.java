@@ -182,23 +182,20 @@ public List<Document>  getDocumentsByUser(String UserId) {
 }
 
 @Transactional
-public List<Document>  Search(String Keyword,String Path) {
-	log.debug("getting Document instance with keyword: " + Keyword+"and"+Path );
+public List<Document>  Search(String Keyword) {
+	log.debug("getting Document instance with keyword: " + Keyword );
 	try {
 		Criteria criteria=sessionFactory.getCurrentSession().createCriteria(Document.class);
 		MatchMode matchMode=MatchMode.ANYWHERE;
 		criteria.add(Restrictions.like("documentUuid", Keyword, matchMode));		
 		List<Document>  document=(List<Document>) criteria.list();
-		List<Document>  document1=SearchByName(Keyword);
-		List<Document>  document2=SearchByPath(Path);
-		document.addAll(document1);
-		document.addAll(document2);
-			
-		if (document == null) {
+		List<Document>  document1=SearchByName(Keyword);	
+		document.addAll(document1);		
+		if (document == null) 
+		{
 			log.debug("get successful, no instance found");
-			
-		} else {
-			
+		} else 
+		{
 			log.debug("get successful, instance found");
 		}
 		return document;

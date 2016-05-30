@@ -966,6 +966,7 @@ public ArrayList<Folder> getFolersListByUser()throws Exception
 /**
  * <h3>Get Documents By Folder Method</h3>
  * This method used to view all the documents for particular folder
+ * @param FolderCode This is the input for getDocumentsByFolder method
  * @return ArrayList of documents.
  * @throws java.lang.Exception
  * On input error.
@@ -997,9 +998,27 @@ public ArrayList<Document> Search(String Keyword) throws Exception
 		throw new Exception();
 	}
 
-	String	path="root:jdsoftdms/"+commonMethods.Path(commonMethods.FolderCode);
-	return (ArrayList<Document>)commonMethods.documentdao.Search(Keyword, path);
+	return (ArrayList<Document>)commonMethods.documentdao.Search(Keyword);
 }
+
+/**
+ * <h3>Search By Path Method</h3>
+ * This method used to search the document by path
+ * @param Path This is the input for SearchByPath method
+ * @return ArrayList of documents.
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: SearchByPath("root:jdsoftdms/jdsoftAdmin/")
+ */
+public ArrayList<Document> SearchByPath(String Path) throws Exception
+{
+	if(Path=="")
+	{
+		throw new Exception();
+	}
+	return (ArrayList<Document>)commonMethods.documentdao.SearchByPath(Path);
+}
+
 /**
  * <h3>jdsoftDMS Constructor</h3>
  *  This constructor used to create of an object for Document Management System and object used to access Document Management System all the methods
