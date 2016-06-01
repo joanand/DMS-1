@@ -2,11 +2,15 @@ package in.jdsoft.dms.services;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 
 import in.jdsoft.dms.model.Document;
 import in.jdsoft.dms.model.DocumentHistory;
@@ -26,6 +30,7 @@ import in.jdsoft.dms.model.UsersRole;
 * @version 1.0
 * @since   2016-May-26
 */
+@WebService
 public class jdsoftDMS                                           
 {
 	
@@ -40,6 +45,7 @@ public class jdsoftDMS
 * On input error.
 * Example: createFolder("test1/test2")
 */
+@WebMethod
 public void createFolder(String FolderName)throws Exception
 {
 	if(FolderName=="")
@@ -73,6 +79,7 @@ public void createFolder(String FolderName)throws Exception
  * On input error.
  * Example: createSubFolder("12345","test1/test2")
  */
+@WebMethod
 public void createSubFolder(String RootFolderCode,String SubFolderName)throws Exception
 {
 	if(RootFolderCode==""||SubFolderName=="")
@@ -101,6 +108,7 @@ public void createSubFolder(String RootFolderCode,String SubFolderName)throws Ex
 * On input error.
 * Example: deleteFolder("12345")
 */	
+@WebMethod
 public void deleteFolder(String FolderCode)throws Exception
 {
 	if(FolderCode=="")
@@ -139,6 +147,7 @@ public void deleteFolder(String FolderCode)throws Exception
  * On input error.
  * Example: renameFolder("123456","test1")
  */
+@WebMethod
 public void renameFolder(String OldFolderCode,String NewFolderName)throws Exception
 {
 	if(OldFolderCode==""||NewFolderName=="")
@@ -170,6 +179,8 @@ public void renameFolder(String OldFolderCode,String NewFolderName)throws Except
  * On input error.
  * Example: createDocument("DocumentName","123456",bytes[])
  */
+
+@WebMethod
 public void createDocument(String DocumentName,String FolderCode,byte[] bytes)throws Exception
 {
 	if(DocumentName==""||FolderCode=="")
@@ -205,6 +216,7 @@ public void createDocument(String DocumentName,String FolderCode,byte[] bytes)th
  * On input error.
  * Example: renameDocument("NewDocumentName","123456")
  */
+@WebMethod
 public void renameDocument(String NewDocumentName, String DocumentUuid) throws Exception
 {
 	if(NewDocumentName==""||DocumentUuid=="")
@@ -224,6 +236,7 @@ public void renameDocument(String NewDocumentName, String DocumentUuid) throws E
 * On input error.
 * Example: deleteDocument("123456")
 */	
+@WebMethod
 public void deleteDocument(String DocumentUuid)throws Exception
 {
 	if(DocumentUuid=="")
@@ -249,6 +262,7 @@ public void deleteDocument(String DocumentUuid)throws Exception
 * On input error.
 * Example: createUser("user1","password","user1@gmail.com",1,"Admin")
 */	
+@WebMethod
 public void createUser(String userName, String userPassword, String userEmail, Integer userStatus, String userRole) throws Exception
 {
 	if(userName==""||userPassword=="")
@@ -289,6 +303,7 @@ public void createUser(String userName, String userPassword, String userEmail, I
 * On input error.
 * Example: deleteUser("user1")
 */	
+@WebMethod
 public void deleteUser(String UserName) throws Exception
 {
 	if(commonMethods.UserRole.equals("Admin"))
@@ -311,6 +326,7 @@ public void deleteUser(String UserName) throws Exception
 * On input error.
 * Example: lockDocument("123456")
 */	
+@WebMethod
 public void lockDocument(String DocumentUuid) throws Exception
 {
 	if(DocumentUuid=="")
@@ -344,6 +360,7 @@ public void lockDocument(String DocumentUuid) throws Exception
 * On input error.
 * Example: unlockDocument("123456")
 */
+@WebMethod
 public void unlockDocument(String DocumentUuid) throws Exception
 {
 	if(DocumentUuid=="")
@@ -378,6 +395,7 @@ public void unlockDocument(String DocumentUuid) throws Exception
 * On input error.
 * Example: checkIn("123456")
 */
+@WebMethod
 public void checkIn(String DocumentUuid) throws Exception
 {
 	 if(DocumentUuid=="")
@@ -407,6 +425,7 @@ public void checkIn(String DocumentUuid) throws Exception
  * On input error.
  * Example: checkOut("123456",bytes[])
  */
+@WebMethod
 public void checkOut(String DocumentUuid,byte[] bytes) throws Exception
 {
 	if(DocumentUuid=="")
@@ -447,6 +466,7 @@ public void checkOut(String DocumentUuid,byte[] bytes) throws Exception
 * On input error.
 * Example: cancelCheckIn("123456")
 */
+@WebMethod
 public void cancelCheckIn(String DocumentUuid) throws Exception
 {
 	if(DocumentUuid=="")
@@ -475,6 +495,7 @@ public void cancelCheckIn(String DocumentUuid) throws Exception
 * On input error.
 * Example: getContent("123456")
 */
+@WebMethod
 public byte[] getContent(String DocumentUuid) throws Exception
 {
 	if(DocumentUuid=="")
@@ -507,7 +528,8 @@ public byte[] getContent(String DocumentUuid) throws Exception
  * On input error.
  * Example: Restore(1.2,"123456")
  */
-public void Retore(Double Version,String DocumentUuid)throws Exception
+@WebMethod
+public void Restore(Double Version,String DocumentUuid)throws Exception
 {
 	if(DocumentUuid==""||Version==null)
 	{
@@ -577,6 +599,7 @@ public void Retore(Double Version,String DocumentUuid)throws Exception
  * On input error.
  * Example: moveDocument("123456","233456346")
  */
+@WebMethod
 public void moveDocument(String DocumentUuid,String DestinationFolderCode)throws Exception
 {
 	if(DocumentUuid==""||DestinationFolderCode=="")
@@ -604,6 +627,7 @@ public void moveDocument(String DocumentUuid,String DestinationFolderCode)throws
  * On input error.
  * Example: copyDocument("123456","233456346")
  */
+@WebMethod
 public void copyDocument(String DocumentUuid,String DestinationFolderCode)throws Exception
 {
 	if(DocumentUuid==""||DestinationFolderCode=="")
@@ -638,6 +662,7 @@ public void copyDocument(String DocumentUuid,String DestinationFolderCode)throws
  * On input error.
  * Example: documentAllocation("123456",3)
  */
+@WebMethod
 public void documentAllocation(String DocumentUuid,Integer UserId)throws Exception
 {
 	if(DocumentUuid==""||UserId==null)
@@ -695,6 +720,7 @@ public void documentAllocation(String DocumentUuid,Integer UserId)throws Excepti
  * On input error.
  * Example: cancelParticularUserAllocation("123456",3)
  */
+@WebMethod
 public void cancelParticularUserAllocation(String DocumentUuid,Integer UserId)throws Exception
 {
 	if(DocumentUuid==""||UserId==null)
@@ -741,6 +767,7 @@ public void cancelParticularUserAllocation(String DocumentUuid,Integer UserId)th
  * On input error.
  * Example: cancelAllAllocation("123456")
  */
+@WebMethod
 public void cancelAllAllocation(String DocumentUuid)throws Exception
 {
 	if(DocumentUuid=="")
@@ -767,6 +794,7 @@ public void cancelAllAllocation(String DocumentUuid)throws Exception
  * On input error.
  * Example: viewAllocatedDocumentsListByUser()
  */
+@WebMethod
 public ArrayList<Document> viewAllocatedDocumentsListByUser() throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -819,6 +847,7 @@ public ArrayList<Document> viewAllocatedDocumentsListByUser() throws Exception
  * On input error.
  * Example: viewAllocatedDocument()
  */
+@WebMethod
 public ArrayList<Document> viewAllocatedDocument() throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -857,6 +886,7 @@ public ArrayList<Document> viewAllocatedDocument() throws Exception
  * On input error.
  * Example: getUsersList()
  */
+@WebMethod
 public ArrayList<Users> getUsersList() throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -881,6 +911,7 @@ public ArrayList<Users> getUsersList() throws Exception
  * On input error.
  * Example: getDocumentsList()
  */
+@WebMethod
 public ArrayList<Document> getDocumentsList() throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -903,9 +934,10 @@ public ArrayList<Document> getDocumentsList() throws Exception
  * @return ArrayList of folders.
  * @throws java.lang.Exception
  * On input error.
- * Example: getFolersList()
+ * Example: getFoldersList()
  */
-public ArrayList<Folder> getFolersList() throws Exception
+@WebMethod
+public ArrayList<Folder> getFoldersList() throws Exception
 {
 	if(commonMethods.UsersName=="")
 	{
@@ -928,6 +960,7 @@ public ArrayList<Folder> getFolersList() throws Exception
  * On input error.
  * Example: getDocumentsListByUser()
  */
+@WebMethod
 public ArrayList<Document> getDocumentsListByUser() throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -937,7 +970,7 @@ public ArrayList<Document> getDocumentsListByUser() throws Exception
 	String Path=null;
 	Users users=new Users();
 	users=commonMethods.usersdao.getUserByName(commonMethods.UsersName);	
-	ArrayList<Folder> dock=  getFolersList();
+	ArrayList<Folder> dock=  getFoldersList();
 	for(Folder s:dock )
 	{
 		if(users.getUserName().equals(s.getFolderName()))
@@ -955,7 +988,8 @@ public ArrayList<Document> getDocumentsListByUser() throws Exception
  * On input error.
  * Example: getFoldersListByUser()
  */
-public ArrayList<Folder> getFolersListByUser()throws Exception
+@WebMethod
+public ArrayList<Folder> getFoldersListByUser()throws Exception
 {
 	if(commonMethods.UsersName=="")
 	{
@@ -972,6 +1006,7 @@ public ArrayList<Folder> getFolersListByUser()throws Exception
  * On input error.
  * Example: getDocumentsByFolder("1234567")
  */
+@WebMethod
 public ArrayList<Document> getDocumentsByFolder(String FolderCode)throws Exception
 {
 	if(commonMethods.UsersName=="")
@@ -991,6 +1026,7 @@ public ArrayList<Document> getDocumentsByFolder(String FolderCode)throws Excepti
  * On input error.
  * Example: Search("keyword")
  */
+@WebMethod
 public ArrayList<Document> Search(String Keyword) throws Exception
 {
 	if(Keyword==""||commonMethods.UsersName=="")
@@ -1010,6 +1046,7 @@ public ArrayList<Document> Search(String Keyword) throws Exception
  * On input error.
  * Example: SearchByPath("root:jdsoftdms/jdsoftAdmin/")
  */
+@WebMethod
 public ArrayList<Document> SearchByPath(String Path) throws Exception
 {
 	if(Path=="")

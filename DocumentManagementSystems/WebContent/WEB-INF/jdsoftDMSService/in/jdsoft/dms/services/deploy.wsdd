@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from jdsoftDMSService WSDL service -->
+
+  <service name="jdsoftDMS" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://services.dms.jdsoft.in"/>
+      <parameter name="wsdlServiceElement" value="jdsoftDMSService"/>
+      <parameter name="schemaQualified" value="http://services.dms.jdsoft.in"/>
+      <parameter name="wsdlServicePort" value="jdsoftDMS"/>
+      <parameter name="className" value="in.jdsoft.dms.services.jdsoftDMS"/>
+      <parameter name="wsdlPortType" value="jdsoftDMS"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" xmlns:retNS="http://services.dms.jdsoft.in" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getContent" qname="operNS:getContent" returnQName="retNS:getContentReturn" returnType="rtns:base64Binary" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="createFolder" qname="operNS:createFolder" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:FolderName" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="createDocument" qname="operNS:createDocument" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentName" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:FolderCode" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:bytes" type="tns:base64Binary"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="renameDocument" qname="operNS:renameDocument" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:NewDocumentName" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="deleteUser" qname="operNS:deleteUser" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:UserName" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="cancelCheckIn" qname="operNS:cancelCheckIn" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="restore" qname="operNS:Restore" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:Version" type="tns:double"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="copyDocument" qname="operNS:copyDocument" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DestinationFolderCode" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="moveDocument" qname="operNS:moveDocument" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DestinationFolderCode" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" xmlns:retNS="http://services.dms.jdsoft.in" xmlns:rtns="http://services.dms.jdsoft.in" xmlns:tns="http://services.dms.jdsoft.in" name="getUsersList" qname="operNS:getUsersList" returnQName="retNS:getUsersListReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" xmlns:retNS="http://services.dms.jdsoft.in" xmlns:rtns="http://services.dms.jdsoft.in" xmlns:tns="http://services.dms.jdsoft.in" name="getDocumentsList" qname="operNS:getDocumentsList" returnQName="retNS:getDocumentsListReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" xmlns:retNS="http://services.dms.jdsoft.in" xmlns:rtns="http://services.dms.jdsoft.in" xmlns:tns="http://services.dms.jdsoft.in" name="getFoldersList" qname="operNS:getFoldersList" returnQName="retNS:getFoldersListReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" xmlns:retNS="http://services.dms.jdsoft.in" xmlns:rtns="http://services.dms.jdsoft.in" xmlns:tns="http://services.dms.jdsoft.in" name="searchByPath" qname="operNS:SearchByPath" returnQName="retNS:SearchByPathReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://services.dms.jdsoft.in" qname="pns:Path" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="createSubFolder" qname="operNS:createSubFolder" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:RootFolderCode" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:SubFolderName" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="renameFolder" qname="operNS:renameFolder" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:OldFolderCode" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:NewFolderName" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="checkOut" qname="operNS:checkOut" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:bytes" type="tns:base64Binary"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="checkIn" qname="operNS:checkIn" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="deleteFolder" qname="operNS:deleteFolder" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:FolderCode" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="deleteDocument" qname="operNS:deleteDocument" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="unlockDocument" qname="operNS:unlockDocument" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="lockDocument" qname="operNS:lockDocument" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" xmlns:retNS="http://services.dms.jdsoft.in" xmlns:rtns="http://services.dms.jdsoft.in" xmlns:tns="http://services.dms.jdsoft.in" name="search" qname="operNS:Search" returnQName="retNS:SearchReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://services.dms.jdsoft.in" qname="pns:Keyword" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="createUser" qname="operNS:createUser" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:userName" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:userPassword" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:userEmail" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:userStatus" type="tns:int"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:userRole" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="documentAllocation" qname="operNS:documentAllocation" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:UserId" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="cancelParticularUserAllocation" qname="operNS:cancelParticularUserAllocation" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:UserId" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" name="cancelAllAllocation" qname="operNS:cancelAllAllocation" soapAction="">
+        <parameter xmlns:pns="http://services.dms.jdsoft.in" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:DocumentUuid" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" xmlns:retNS="http://services.dms.jdsoft.in" xmlns:rtns="http://services.dms.jdsoft.in" xmlns:tns="http://services.dms.jdsoft.in" name="viewAllocatedDocumentsListByUser" qname="operNS:viewAllocatedDocumentsListByUser" returnQName="retNS:viewAllocatedDocumentsListByUserReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" xmlns:retNS="http://services.dms.jdsoft.in" xmlns:rtns="http://services.dms.jdsoft.in" xmlns:tns="http://services.dms.jdsoft.in" name="viewAllocatedDocument" qname="operNS:viewAllocatedDocument" returnQName="retNS:viewAllocatedDocumentReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" xmlns:retNS="http://services.dms.jdsoft.in" xmlns:rtns="http://services.dms.jdsoft.in" xmlns:tns="http://services.dms.jdsoft.in" name="getDocumentsListByUser" qname="operNS:getDocumentsListByUser" returnQName="retNS:getDocumentsListByUserReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" xmlns:retNS="http://services.dms.jdsoft.in" xmlns:rtns="http://services.dms.jdsoft.in" xmlns:tns="http://services.dms.jdsoft.in" name="getFoldersListByUser" qname="operNS:getFoldersListByUser" returnQName="retNS:getFoldersListByUserReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://services.dms.jdsoft.in" xmlns:retNS="http://services.dms.jdsoft.in" xmlns:rtns="http://services.dms.jdsoft.in" xmlns:tns="http://services.dms.jdsoft.in" name="getDocumentsByFolder" qname="operNS:getDocumentsByFolder" returnQName="retNS:getDocumentsByFolderReturn" returnType="rtns:ArrayOf_xsd_anyType" returnItemQName="tns:item" soapAction="">
+        <parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" xmlns:pns="http://services.dms.jdsoft.in" qname="pns:FolderCode" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="unlockDocument deleteFolder searchByPath viewAllocatedDocument createSubFolder renameFolder getFoldersListByUser getContent moveDocument search cancelParticularUserAllocation getDocumentsByFolder renameDocument deleteDocument viewAllocatedDocumentsListByUser createFolder getUsersList restore documentAllocation getDocumentsList createDocument cancelCheckIn checkIn getFoldersList lockDocument deleteUser createUser getDocumentsListByUser checkOut copyDocument cancelAllAllocation"/>
+
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;deleteDocument" type="java:in.jdsoft.dms.services.DeleteDocument" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getDocumentsByFolderResponse" type="java:in.jdsoft.dms.services.GetDocumentsByFolderResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;createFolder" type="java:in.jdsoft.dms.services.CreateFolder" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;SearchByPathResponse" type="java:in.jdsoft.dms.services.SearchByPathResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;renameFolder" type="java:in.jdsoft.dms.services.RenameFolder" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;moveDocumentResponse" type="java:in.jdsoft.dms.services.MoveDocumentResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;createDocument" type="java:in.jdsoft.dms.services.CreateDocument" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;checkIn" type="java:in.jdsoft.dms.services.CheckIn" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;checkOutResponse" type="java:in.jdsoft.dms.services.CheckOutResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;viewAllocatedDocumentResponse" type="java:in.jdsoft.dms.services.ViewAllocatedDocumentResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getFoldersList" type="java:in.jdsoft.dms.services.GetFoldersList" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;createSubFolderResponse" type="java:in.jdsoft.dms.services.CreateSubFolderResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;unlockDocument" type="java:in.jdsoft.dms.services.UnlockDocument" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;checkInResponse" type="java:in.jdsoft.dms.services.CheckInResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getUsersListResponse" type="java:in.jdsoft.dms.services.GetUsersListResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;documentAllocation" type="java:in.jdsoft.dms.services.DocumentAllocation" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;cancelParticularUserAllocationResponse" type="java:in.jdsoft.dms.services.CancelParticularUserAllocationResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getFoldersListByUser" type="java:in.jdsoft.dms.services.GetFoldersListByUser" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;cancelCheckIn" type="java:in.jdsoft.dms.services.CancelCheckIn" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getDocumentsListResponse" type="java:in.jdsoft.dms.services.GetDocumentsListResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;copyDocument" type="java:in.jdsoft.dms.services.CopyDocument" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;Search" type="java:in.jdsoft.dms.services.Search" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;renameFolderResponse" type="java:in.jdsoft.dms.services.RenameFolderResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;renameDocument" type="java:in.jdsoft.dms.services.RenameDocument" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;SearchByPath" type="java:in.jdsoft.dms.services.SearchByPath" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;createUser" type="java:in.jdsoft.dms.services.CreateUser" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getUsersList" type="java:in.jdsoft.dms.services.GetUsersList" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;lockDocumentResponse" type="java:in.jdsoft.dms.services.LockDocumentResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;cancelCheckInResponse" type="java:in.jdsoft.dms.services.CancelCheckInResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getFoldersListByUserResponse" type="java:in.jdsoft.dms.services.GetFoldersListByUserResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <arrayMapping xmlns:ns="http://services.dms.jdsoft.in" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_anyType" type="java:java.lang.Object[]" innerType="cmp-ns:anyType" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getFoldersListResponse" type="java:in.jdsoft.dms.services.GetFoldersListResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;lockDocument" type="java:in.jdsoft.dms.services.LockDocument" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;cancelParticularUserAllocation" type="java:in.jdsoft.dms.services.CancelParticularUserAllocation" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;RestoreResponse" type="java:in.jdsoft.dms.services.RestoreResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;renameDocumentResponse" type="java:in.jdsoft.dms.services.RenameDocumentResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getContentResponse" type="java:in.jdsoft.dms.services.GetContentResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;createDocumentResponse" type="java:in.jdsoft.dms.services.CreateDocumentResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;createSubFolder" type="java:in.jdsoft.dms.services.CreateSubFolder" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getDocumentsListByUserResponse" type="java:in.jdsoft.dms.services.GetDocumentsListByUserResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;deleteUser" type="java:in.jdsoft.dms.services.DeleteUser" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;deleteDocumentResponse" type="java:in.jdsoft.dms.services.DeleteDocumentResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;deleteFolder" type="java:in.jdsoft.dms.services.DeleteFolder" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;viewAllocatedDocumentsListByUserResponse" type="java:in.jdsoft.dms.services.ViewAllocatedDocumentsListByUserResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;SearchResponse" type="java:in.jdsoft.dms.services.SearchResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;checkOut" type="java:in.jdsoft.dms.services.CheckOut" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;documentAllocationResponse" type="java:in.jdsoft.dms.services.DocumentAllocationResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;moveDocument" type="java:in.jdsoft.dms.services.MoveDocument" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;Restore" type="java:in.jdsoft.dms.services.Restore" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;viewAllocatedDocumentsListByUser" type="java:in.jdsoft.dms.services.ViewAllocatedDocumentsListByUser" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getDocumentsByFolder" type="java:in.jdsoft.dms.services.GetDocumentsByFolder" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getContent" type="java:in.jdsoft.dms.services.GetContent" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;cancelAllAllocationResponse" type="java:in.jdsoft.dms.services.CancelAllAllocationResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;cancelAllAllocation" type="java:in.jdsoft.dms.services.CancelAllAllocation" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;viewAllocatedDocument" type="java:in.jdsoft.dms.services.ViewAllocatedDocument" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;deleteFolderResponse" type="java:in.jdsoft.dms.services.DeleteFolderResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;unlockDocumentResponse" type="java:in.jdsoft.dms.services.UnlockDocumentResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;copyDocumentResponse" type="java:in.jdsoft.dms.services.CopyDocumentResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;createUserResponse" type="java:in.jdsoft.dms.services.CreateUserResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getDocumentsList" type="java:in.jdsoft.dms.services.GetDocumentsList" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;createFolderResponse" type="java:in.jdsoft.dms.services.CreateFolderResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;getDocumentsListByUser" type="java:in.jdsoft.dms.services.GetDocumentsListByUser" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://services.dms.jdsoft.in" qname="ns:&gt;deleteUserResponse" type="java:in.jdsoft.dms.services.DeleteUserResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

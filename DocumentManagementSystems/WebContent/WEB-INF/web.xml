@@ -9,20 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  <display-name>JAXWS-Spring</display-name>
-  <servlet>
-    <servlet-name>jaxws-servlet</servlet-name>
-    <servlet-class>
-                      com.sun.xml.ws.transport.http.servlet.WSSpringServlet
-                </servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>jaxws-servlet</servlet-name>
-    <url-pattern>/jaxws-spring</url-pattern>
-  </servlet-mapping>
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
   <servlet>
     <display-name>Apache-Axis Servlet</display-name>
     <servlet-name>AxisServlet</servlet-name>
