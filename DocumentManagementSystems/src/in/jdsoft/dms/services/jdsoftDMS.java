@@ -1103,6 +1103,4 @@ public jdsoftDMS(String UserName,String Password) throws Exception
 			throw new Exception("Invalid Login");
 		}
 }
-
-
 }
