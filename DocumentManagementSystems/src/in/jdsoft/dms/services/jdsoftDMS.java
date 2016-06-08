@@ -595,7 +595,7 @@ public void Restore(Double Version,String DocumentUuid)throws Exception
  * @return ArrayList of DocumentHistory.
  * @throws java.lang.Exception
  * On input error.
- * Example: getDocumentVersionList(Integer DocumentId)
+ * Example: getDocumentVersionList(123)
  */
 @WebMethod
 public ArrayList<DocumentHistory> getDocumentVersionList(Integer DocumentId) throws Exception
