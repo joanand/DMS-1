@@ -85,7 +85,7 @@ public void update(Document instance) {
 
 	
 @Transactional
-	public Document getUuidByDocument(String DocumentUuid) {
+	public Document getDocumentByUuid(String DocumentUuid) {
 		log.debug("getting Document instance with Uuid: " + DocumentUuid);
 		try {
 			Criteria criteria=sessionFactory.getCurrentSession().createCriteria(Document.class);
@@ -105,7 +105,7 @@ public void update(Document instance) {
 	}
 
 @Transactional
-public List<Document>  getPathByDocument(String Path) {
+public List<Document>  getDocumentByPath(String Path) {
 	log.debug("getting Document instance with path: " + Path);
 	try {
 		Criteria criteria=sessionFactory.getCurrentSession().createCriteria(Document.class);
@@ -250,53 +250,4 @@ public List<Document>  SearchByPath(String Path) {
 	}
 }
 
-
-
-	/*public List findByExample(Document instance) {
-		log.debug("finding Document instance by example");
-		try {
-			List results = sessionFactory.getCurrentSession().createCriteria("in.jdsoft.dms.model.Document")
-					.add(Example.create(instance)).list();
-			log.debug("find by example successful, result size: " + results.size());
-			return results;
-		} catch (RuntimeException re) {
-			log.error("find by example failed", re);
-			throw re;
-		}
-	}
-	
-
-	public Document merge(Document detachedInstance) {
-		log.debug("merging Document instance");
-		try {
-			Document result = (Document) sessionFactory.getCurrentSession().merge(detachedInstance);
-			log.debug("merge successful");
-			return result;
-		} catch (RuntimeException re) {
-			log.error("merge failed", re);
-			throw re;
-		}
-	}
-	
-	public void attachDirty(Document instance) {
-		log.debug("attaching dirty Document instance");
-		try {
-			sessionFactory.getCurrentSession().saveOrUpdate(instance);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}
-
-	public void attachClean(Document instance) {
-		log.debug("attaching clean Document instance");
-		try {
-			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
-	}*/
 }

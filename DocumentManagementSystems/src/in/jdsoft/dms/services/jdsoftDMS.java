@@ -8,8 +8,6 @@ import java.util.Random;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-
-
 import in.jdsoft.dms.model.Document;
 import in.jdsoft.dms.model.DocumentHistory;
 import in.jdsoft.dms.model.Folder;
@@ -120,14 +118,14 @@ public void deleteFolder(String FolderCode)throws Exception
 	for(int i=0;i<str1.length;i++)
 	{
 		folder=commonMethods.folderdao.getFolderCodeByUser(str1[i].toString());
-		ArrayList<Document> dock1= (ArrayList<Document>)commonMethods.documentdao.getPathByDocument("root:jdsoftdms/"+commonMethods.Path(folder.getFolderCode()));
+		ArrayList<Document> dock1= (ArrayList<Document>)commonMethods.documentdao.getDocumentByPath("root:jdsoftdms/"+commonMethods.Path(folder.getFolderCode()));
 		if(folder!=null)
 		{
 			for(Document s1:dock1 )
 			{	
 				if(s1!=null)
 				{		
-					documenthistory=commonMethods.documenthistorydao.getNameByDocumentHistory(s1.getDocumentId());
+					documenthistory=commonMethods.documenthistorydao.getDocumentHistoryByName(s1.getDocumentId());
 					commonMethods.documenthistorydao.delete(documenthistory);
 					commonMethods.documentdao.delete(s1);
 				}
@@ -155,7 +153,7 @@ public void renameFolder(String OldFolderCode,String NewFolderName)throws Except
 	Folder folder=new Folder();
 	folder=commonMethods.folderdao.getFolderCodeByUser(OldFolderCode);	
 	String curefolder="root:jdsoftdms/"+commonMethods.Path(OldFolderCode); 
-	ArrayList<Document> dock= (ArrayList<Document>)commonMethods.documentdao.getPathByDocument(curefolder);
+	ArrayList<Document> dock= (ArrayList<Document>)commonMethods.documentdao.getDocumentByPath(curefolder);
 	curefolder=curefolder.replace(folder.getFolderName(), NewFolderName);
 	folder.setFolderName(NewFolderName);
 	folder.setModifiedBy(commonMethods.UsersName);
@@ -197,7 +195,7 @@ public void createDocument(String DocumentName,String FolderCode,byte[] bytes)th
 	document.setPath("root:jdsoftdms/"+commonMethods.Path(FolderCode));
 	document.setDocumentAccess("#");
 	commonMethods.documentdao.persist(document);
-	document1=commonMethods.documentdao.getUuidByDocument(String.valueOf(d));
+	document1=commonMethods.documentdao.getDocumentByUuid(String.valueOf(d));
 	documenthistory.setAuthor(commonMethods.UsersName);
 	documenthistory.setDate(new Timestamp(Calendar.getInstance().getTime().getTime()));
 	documenthistory.setDocumentId(document1.getDocumentId());
@@ -222,7 +220,7 @@ public void renameDocument(String NewDocumentName, String DocumentUuid) throws E
 	throw new Exception("Null pointer exception");
 	}
 	Document document=new Document();
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 	document.setDocumentName(NewDocumentName);
 	commonMethods.documentdao.update(document);	
 }	
@@ -242,9 +240,9 @@ public void deleteDocument(String DocumentUuid)throws Exception
 	throw new Exception("Null pointer exception");
 	}
 	Document document=new Document();
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 	DocumentHistory documenthistory=new DocumentHistory();
-	documenthistory=commonMethods.documenthistorydao.getNameByDocumentHistory(document.getDocumentId());
+	documenthistory=commonMethods.documenthistorydao.getDocumentHistoryByName(document.getDocumentId());
 	commonMethods.documentdao.delete(document);
 	commonMethods.documenthistorydao.delete(documenthistory);
 }	
@@ -332,7 +330,7 @@ public void lockDocument(String DocumentUuid) throws Exception
 	throw new Exception("Null pointer exception");
 	}
 	Document document=new Document();
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 	if(document.getLockStatus()==0&&document.getEditStatus()==0)
 	{
 		document.setLockStatus(1);
@@ -366,7 +364,7 @@ public void unlockDocument(String DocumentUuid) throws Exception
 	throw new Exception("Null pointer exception");
 	}
 	Document document=new Document();
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 	if((document.getLockStatus()==1) && (document.getLockInformation().equals(commonMethods.UsersName)))
 	{
 		document.setLockStatus(0);
@@ -401,7 +399,7 @@ public void checkIn(String DocumentUuid) throws Exception
 		throw new Exception("Null pointer exception");
 		}
 		Document document=new Document();
-		document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+		document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 		if(document.getEditStatus()==0&&document.getLockStatus()==0)
 		{
 			document.setEditStatus(1);
@@ -431,9 +429,9 @@ public void checkOut(String DocumentUuid,byte[] bytes) throws Exception
 	throw new Exception("Null pointer exception");
 	}
 	Document document=new Document();
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 	DocumentHistory documenthistory=new DocumentHistory();
-	ArrayList<DocumentHistory> dh=(ArrayList<DocumentHistory>)commonMethods.documenthistorydao.getIdByDocumentHistory(document.getDocumentId());
+	ArrayList<DocumentHistory> dh=(ArrayList<DocumentHistory>)commonMethods.documenthistorydao.getDocumentHistoryById(document.getDocumentId());
 	for(DocumentHistory s:dh )
 	{
 		commonMethods.version=s.getVersion();	
@@ -472,7 +470,7 @@ public void cancelCheckIn(String DocumentUuid) throws Exception
 	throw new Exception("Null pointer exception");
 	}
 	Document document=new Document();
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 	if(document.getEditStatus()==1&&commonMethods.UserRole.equals("Admin"))
 	{
 		document.setEditStatus(0);
@@ -501,11 +499,11 @@ public byte[] getContent(String DocumentUuid) throws Exception
 	throw new Exception("Null pointer exception");
 	}
 	Document document=new Document();
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);	
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);	
 	byte[] b=null;
 	if(document.getEditStatus()==1)
 	{
-		ArrayList<DocumentHistory> dh=(ArrayList<DocumentHistory>)commonMethods.documenthistorydao.getIdByDocumentHistory(document.getDocumentId());
+		ArrayList<DocumentHistory> dh=(ArrayList<DocumentHistory>)commonMethods.documenthistorydao.getDocumentHistoryById(document.getDocumentId());
 		for(DocumentHistory s:dh )
 		{
 			b=s.getContent();
@@ -534,7 +532,7 @@ public void Restore(Double Version,String DocumentUuid)throws Exception
 	throw new Exception("Null pointer exception");
 	}
 	Document document=new Document();
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 	byte[] b=null;
 	byte[] temp=null;
 	byte[] b1=null;
@@ -549,7 +547,7 @@ public void Restore(Double Version,String DocumentUuid)throws Exception
 	Date currentdate=null;
 	Date lastedate=null;
 	DocumentHistory documenthistory=new DocumentHistory();
-	ArrayList<DocumentHistory> dh=(ArrayList<DocumentHistory>)commonMethods.documenthistorydao.getIdByDocumentHistory(document.getDocumentId());
+	ArrayList<DocumentHistory> dh=(ArrayList<DocumentHistory>)commonMethods.documenthistorydao.getDocumentHistoryById(document.getDocumentId());
 	String version=Double.toString(Version);
 	for(DocumentHistory s:dh )
 		{
@@ -604,7 +602,7 @@ public ArrayList<DocumentHistory> getDocumentVersionList(Integer DocumentId) thr
 	{
 		throw new Exception("Null pointer exception");
 	}	
-	return (ArrayList<DocumentHistory>) commonMethods.documenthistorydao.getIdByDocumentHistory(DocumentId);
+	return (ArrayList<DocumentHistory>) commonMethods.documenthistorydao.getDocumentHistoryById(DocumentId);
 }
 
 /**
@@ -624,7 +622,7 @@ public void moveDocument(String DocumentUuid,String DestinationFolderCode)throws
 	throw new Exception("Null pointer exception");
 	}
 	Document document=new Document();
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 	if((document.getEditStatus()==0&&document.getLockStatus()==0))
 	{
 	document.setPath("root:jdsoftdms/"+commonMethods.Path(DestinationFolderCode));
@@ -652,9 +650,9 @@ public void copyDocument(String DocumentUuid,String DestinationFolderCode)throws
 	throw new Exception("Null pointer exception");
 	}
 	Document document=new Document();
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 	byte[] b=null;
-	ArrayList<DocumentHistory> dh=(ArrayList<DocumentHistory>)commonMethods.documenthistorydao.getIdByDocumentHistory(document.getDocumentId());
+	ArrayList<DocumentHistory> dh=(ArrayList<DocumentHistory>)commonMethods.documenthistorydao.getDocumentHistoryById(document.getDocumentId());
 		for(DocumentHistory s:dh )
 		{
 			b=s.getContent();
@@ -690,7 +688,7 @@ public void documentAllocation(String DocumentUuid,Integer UserId)throws Excepti
 	{
 	Document document=new Document();
 	
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 	String access=document.getDocumentAccess();
 	Users users=new Users();
 	users=commonMethods.usersdao.getUserById(UserId);	
@@ -747,7 +745,7 @@ public void cancelParticularUserAllocation(String DocumentUuid,Integer UserId)th
 	if(commonMethods.UserRole.equals("Admin"))
 	{
 	Document document=new Document();
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 	String access=document.getDocumentAccess();
 	String str2="";
 	String[] str=access.split("#");
@@ -794,7 +792,7 @@ public void cancelAllAllocation(String DocumentUuid)throws Exception
 	if(commonMethods.UserRole.equals("Admin"))
 	{
 	Document document=new Document();
-	document=commonMethods.documentdao.getUuidByDocument(DocumentUuid);
+	document=commonMethods.documentdao.getDocumentByUuid(DocumentUuid);
 	document.setDocumentAccess("#");
 	commonMethods.documentdao.update(document);
 	}
@@ -1032,7 +1030,7 @@ public ArrayList<Document> getDocumentsByFolder(String FolderCode)throws Excepti
 	}
 	Folder folder=commonMethods.folderdao.getFolderCodeByUser(FolderCode);
 	String	Path="root:jdsoftdms/"+commonMethods.Path(folder.getFolderCode());
-	return (ArrayList<Document>) commonMethods.documentdao.getPathByDocument(Path);
+	return (ArrayList<Document>) commonMethods.documentdao.getDocumentByPath(Path);
 }
 /**
  * <h3>Search Method</h3>

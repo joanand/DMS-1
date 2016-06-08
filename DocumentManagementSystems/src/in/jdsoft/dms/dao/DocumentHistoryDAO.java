@@ -3,7 +3,6 @@ package in.jdsoft.dms.dao;
 
 import java.util.List;
 
-import javax.naming.InitialContext;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,7 +80,7 @@ public class DocumentHistoryDAO {
 	}
 	
 	@Transactional
-	public DocumentHistory getNameByDocumentHistory(Integer DocumentId) {
+	public DocumentHistory getDocumentHistoryByName(Integer DocumentId) {
 		log.debug("getting documenthistory instance with name: " + DocumentId);
 		try {
 			Criteria criteria=sessionFactory.getCurrentSession().createCriteria(DocumentHistory.class);
@@ -112,7 +111,7 @@ public class DocumentHistoryDAO {
 	}
 	
 	@Transactional
-	public List<DocumentHistory>  getIdByDocumentHistory(Integer integer) {
+	public List<DocumentHistory>  getDocumentHistoryById(Integer integer) {
 		log.debug("getting DocumentHistory instance with id: " + integer);
 		try {
 			Criteria criteria=sessionFactory.getCurrentSession().createCriteria(DocumentHistory.class);
