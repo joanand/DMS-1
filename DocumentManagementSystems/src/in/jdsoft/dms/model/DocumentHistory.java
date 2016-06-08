@@ -105,5 +105,7 @@ public class DocumentHistory implements java.io.Serializable {
 	public void setContent(byte[] content) {
 		this.content = content;
 	}
+	
+	
 
 }
