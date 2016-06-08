@@ -1,8 +1,5 @@
 package in.jdsoft.dms.services;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,6 +8,7 @@ import java.util.Random;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+
 
 import in.jdsoft.dms.model.Document;
 import in.jdsoft.dms.model.DocumentHistory;
@@ -591,6 +589,25 @@ public void Restore(Double Version,String DocumentUuid)throws Exception
 	commonMethods.documenthistorydao.update(documenthistory);
 }
 /**
+ * <h3>Get Document Version List Method</h3>
+ * This method used to get document version list
+ * @param DocumentId This is the input for getDocumentVersionList method
+ * @return ArrayList of DocumentHistory.
+ * @throws java.lang.Exception
+ * On input error.
+ * Example: getDocumentVersionList(Integer DocumentId)
+ */
+@WebMethod
+public ArrayList<DocumentHistory> getDocumentVersionList(Integer DocumentId) throws Exception
+{
+	if((DocumentId.equals(null)||DocumentId.equals(0) ))
+	{
+		throw new Exception("Null pointer exception");
+	}	
+	return (ArrayList<DocumentHistory>) commonMethods.documenthistorydao.getIdByDocumentHistory(DocumentId);
+}
+
+/**
  * <h3>Move Document Method</h3>
  * This method used to move document from one folder to another folder
  * @param DocumentUuid This is the first parameter to moveDocument method
@@ -1103,4 +1120,5 @@ public jdsoftDMS(String UserName,String Password) throws Exception
 			throw new Exception("Invalid Login");
 		}
 }
+
 }
